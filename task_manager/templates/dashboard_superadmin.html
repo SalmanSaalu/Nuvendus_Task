@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>SuperAdmin Dashboard</h2>
+<p><a href="{% url 'users_list' %}" class="btn">Manage Users</a></p>
+<p><a href="{% url 'tasks_list_html' %}" class="btn">Manage Tasks</a></p>
+
+<h3>All users</h3>
+<table>
+  <tr><th>Username</th><th>Email</th><th>Role</th><th>Managed by</th></tr>
+  {% for u in users %}
+    <tr>
+      <td>{{ u.username }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.profile.role }}</td>
+      <td>{% if u.profile.managed_by %}{{ u.profile.managed_by.username }}{% else %}-{% endif %}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<h3>Recent tasks</h3>
+<table>
+  <tr><th>Title</th><th>Assigned To</th><th>Status</th></tr>
+  {% for t in tasks %}
+    <tr>
+      <td><a href="{% url 'task_detail_html' t.id %}">{{ t.title }}</a></td>
+      <td>{{ t.assigned_to.username }}</td>
+      <td>{{ t.status }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="3">No tasks</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Users</h2>
+<p><a href="{% url 'create_user' %}" class="btn">Create User</a></p>
+<table>
+  <tr><th>Username</th><th>Email</th><th>Role</th><th>Managed By</th></tr>
+  {% for u in users %}
+    <tr>
+      <td>{{ u.username }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.profile.role }}</td>
+      <td>{% if u.profile.managed_by %}{{ u.profile.managed_by.username }}{% else %}-{% endif %}</td>
+      <td>
+        <a href="{% url 'update_user' u.id %}" class="btn">Update</a>
+        <a href="{% url 'delete_user' u.id %}" class="btn danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

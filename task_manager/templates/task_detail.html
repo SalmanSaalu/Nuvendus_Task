@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Task Detail</h2>
+<table>
+  <tr><th>Title</th><th>description</th><th>Assigned To</th><th>Status</th><th>due date</th><th>completion report</th><th>worked hours</th></tr>
+  {% for t in tasks %}
+    <tr>
+      <td>{{ t.title }}</td>
+      <td>{{t.description}}</td>
+      <td>{{ t.assigned_to.username }}</td>
+      <td>{{ t.status }}</td>
+      <td>{{t.due_date}}</td>
+      <td>{{t.completion_report}}</td>
+      <td>{{t.worked_hours}}</td>
+      
+    </tr>
+  {% empty %}
+    <tr><td colspan="3">No tasks</td></tr>
+  {% endfor %}
+</table>
+
+<!-- <script>
+const apiAccessToken = "{{ api_access_token|default:'' }}";
+if (apiAccessToken) {
+  localStorage.setItem("api_access_token", apiAccessToken);
+}
+const taskId = "{{ task_id }}";
+
+async function loadTask() {
+  const token = localStorage.getItem("api_access_token");
+  const respList = await fetch("/api/tasks/", {
+    headers: token ? { "Authorization": "Bearer " + token } : {}
+  });
+  if (!respList.ok) { document.getElementById("taskArea").innerText = "Failed to load"; return; }
+  const tasks = await respList.json();
+  const task = tasks.find(t => t.id == taskId);
+  if (!task) { document.getElementById("taskArea").innerText = "Task not found or you don't have access."; return; }
+  let html = `<p><strong>${task.title}</strong></p>
+    <p>${task.description}</p>
+    <p>Assigned to: ${task.assigned_to_username}</p>
+    <p>Status: ${task.status}</p>`;
+  if (task.status !== "completed") {
+    html += `<h3>Mark Completed</h3>
+      <button onclick="markCompleted(${task.id})" class="btn">Mark Completed</button>`;
+  } else {
+    html += `<h3>Completion Report</h3><p>${task.completion_report}</p><p>Worked hours: ${task.worked_hours}</p>`;
+  }
+  document.getElementById("taskArea").innerHTML = html;
+}
+
+async function markCompleted(id) {
+  const report = prompt("Completion report:");
+  if (!report) return alert("Report required");
+  const hours = prompt("Worked hours:");
+  if (!hours) return alert("Worked hours required");
+  const token = localStorage.getItem("api_access_token");
+  const resp = await fetch(`/api/tasks/${id}/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({ status: "completed", completion_report: report, worked_hours: hours })
+  });
+  if (resp.ok) {
+    alert("Marked completed");
+    location.reload();
+  } else {
+    alert("Failed to update");
+  }
+}
+
+loadTask();
+</script> -->
+{% endblock %}

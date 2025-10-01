@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Tasks</h2>
+<a href="{% url 'create_task' %}" class="btn" style="background:#28a745">Create Task</a>
+{% if role == "user" %}
+<h3>Task assigned by admin or superadmin</h3>
+{% else %}
+<h3>Task for your managed users</h3>
+{% endif %}
+<table>
+  <tr><th>Title</th><th>Assigned To</th><th>Status</th></tr>
+  {% for t in tasks %}
+    <tr>
+      <td><a href="{% url 'task_detail_html' t.id %}">{{ t.title }}</a></td>
+      <td>{{ t.assigned_to.username }}</td>
+      <td>{{ t.status }}</td>
+ 
+        {% if role != "user" and t.status != "completed" %}
+        <td>
+        <a href="{% url 'task-update' t.pk %}" class="btn">Update</a>
+        <a href="{% url 'task-delete' t.pk %}" class="btn danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+        {%if t.status != "completed" and role != "admin" %}
+            <a href="{% url 'task-completion' t.pk %}" class="btn">completion report</a>
+            {% else %}
+            <a style="text-decoration: none;">{{t.status}}</a>
+        {% endif %} 
+    </td>
+        {% else %}
+        <td>
+            {%if t.status != "completed"%}
+            <a href="{% url 'task-completion' t.pk %}" class="btn">completion report</a>
+            {% else %}
+            <a style="text-decoration: none;">{{t.status}}</a>
+            {% endif %}   
+        </td>
+        {% endif %}
+
+    </tr>
+  {% empty %}
+    <tr><td colspan="3">No tasks</td></tr>
+  {% endfor %}
+</table>
+
+<!-- <script>
+const apiAccessToken = "{{ api_access_token|default:'' }}";
+if (apiAccessToken) {
+  localStorage.setItem("api_access_token", apiAccessToken);
+}
+
+async function loadTasks() {
+  const token = localStorage.getItem("api_access_token");
+  const resp = await fetch("/api/tasks/", {
+    headers: token ? { "Authorization": "Bearer " + token } : {}
+  });
+  if (!resp.ok) {
+    document.getElementById("tasksTable").innerHTML = "<tr><td colspan='5'>Failed to load tasks (maybe token missing)</td></tr>";
+    return;
+  }
+  const data = await resp.json();
+  const table = document.getElementById("tasksTable");
+  data.forEach(t => {
+    table.innerHTML += `<tr>
+      <td><a href="/tasks/${t.id}/detail/">${t.title}</a></td>
+      <td>${t.assigned_to_username}</td>
+      <td>${t.due_date || ""}</td>
+      <td>${t.status}</td>
+      <td>
+        ${t.status !== "completed" ? `<button onclick="markCompleted(${t.id})">Mark Completed</button>` : `<a href="/tasks/${t.id}/detail/">View</a>`}
+      </td>
+    </tr>`;
+  });
+}
+
+async function markCompleted(id) {
+  const report = prompt("Enter completion report (short):");
+  if (!report) return alert("Report required");
+  const hours = prompt("Worked hours (e.g. 2.5):");
+  if (!hours) return alert("Worked hours required");
+  const token = localStorage.getItem("api_access_token");
+  const resp = await fetch(`/api/tasks/${id}/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({ status: "completed", completion_report: report, worked_hours: hours })
+  });
+  if (resp.ok) {
+    alert("Marked completed");
+    location.reload();
+  } else {
+    const err = await resp.json();
+    alert("Error: " + JSON.stringify(err));
+  }
+}
+
+loadTasks();
+</script> -->
+{% endblock %}
