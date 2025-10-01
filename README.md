@@ -39,3 +39,21 @@ Supports **SuperAdmin**, **Admin**, and **User** roles, task assignment, complet
 
 #### To view the home page - http://127.0.0.1:8000/tasks/login
 
+## 🛠 API Endpoints
+
+---
+
+### 1. Authentication
+
+| Endpoint                | Method | Description                                           |
+|-------------------------|--------|-------------------------------------------------------|
+
+| `tasks/api/register/`   | POST   | Register a new user (SuperAdmin can create Admin/User) |
+
+| raw-data |
+
+{
+    "username":"check1",
+    "email":"check1@gmail.com",
+    "password":"check1"
+}
