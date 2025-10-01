@@ -45,15 +45,13 @@ Supports **SuperAdmin**, **Admin**, and **User** roles, task assignment, complet
 
 ### 1. Authentication
 
-| Endpoint                | Method | Description                                           |
-|-------------------------|--------|-------------------------------------------------------|
+### 1. Authentication
 
-| `tasks/api/register/`   | POST   | Register a new user (SuperAdmin can create Admin/User) |
+| Endpoint                | Method | Description                                           | Raw Data Example |
+|-------------------------|--------|-------------------------------------------------------|----------------|
+| `tasks/api/register/`        | POST   | Register a new user (SuperAdmin can create Admin/User) | ```json { "username": "john", "email": "john@example.com", "password": "password123", "role": "admin" } ``` |
+| `tasks/api/token/`           | POST   | Obtain JWT access and refresh token                  | ```json { "username": "john", "password": "password123" } ``` |
+| `/api/token/refresh/`   | POST   | Refresh JWT access token                              | ```json { "refresh": "your_refresh_token_here" } ``` |
 
-| raw-data |
 
-{
-    "username":"check1",
-    "email":"check1@gmail.com",
-    "password":"check1"
-}
+
