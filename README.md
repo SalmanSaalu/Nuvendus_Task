@@ -65,6 +65,10 @@ Supports **SuperAdmin**, **Admin**, and **User** roles, task assignment, complet
 
 | Endpoint                                 | Method     | Description                                               | Raw Data Example |
 |------------------------------------------|------------|-----------------------------------------------------------|----------------|
-| `/api/tasks/<id>/report/`     | GET        | View task completion report (Admin/SuperAdmin only)      | N/A |
+| `tasks/api/tasks/<id>/report/`     | GET        | View task completion report (Admin/SuperAdmin only)      | N/A |
 
 ---
+
+
+## Other 
+- API endpoints are used mainly based on traditional django session authentication . You can find all the paths which is separately grouped in the views.py
