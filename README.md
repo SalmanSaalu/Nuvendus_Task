@@ -71,4 +71,6 @@ Supports **SuperAdmin**, **Admin**, and **User** roles, task assignment, complet
 
 
 ## Other 
-- API endpoints are used mainly based on traditional django session authentication . You can find all the paths which is separately grouped in the views.py
+- Some API endpoints are used mainly based on traditional django session authentication for template return, as well time constrain was less. You can find all the paths which is separately grouped in the views.py.
+
+## Thankyou
