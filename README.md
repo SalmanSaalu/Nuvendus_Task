@@ -53,5 +53,18 @@ Supports **SuperAdmin**, **Admin**, and **User** roles, task assignment, complet
 | `tasks/api/token/`           | POST   | Obtain JWT access and refresh token                  | ```json { "username": "john", "password": "password123" } ``` |
 | `/api/token/refresh/`   | POST   | Refresh JWT access token                              | ```json { "refresh": "your_refresh_token_here" } ``` |
 
+### 2. Tasks
 
+| Endpoint                     | Method     | Description                                         | Raw Data Example |
+|-------------------------------|------------|---------------------------------------------------|----------------|
+| `tasks/api/tasks/`                 | GET        | List all tasks (SuperAdmin sees all, Admin sees assigned tasks, User sees only their tasks) | N/A |
+| `tasks/api/tasks/create/`          | POST       | Create a new task (SuperAdmin/Admin)             | ```json { "title": "Finish Report", "description": "Complete the quarterly report", "assigned_to": 3, "due_date": "2025-10-10" } ``` |
+| `tasks/api/tasks/<id>/`     | PUT/PATCH  | Update task (SuperAdmin/Admin) | ```json { "status": "completed", "worked_hours": "3", "assigned_to": 3, "completion_report": "fully available" } ``` |
 
+### 3. Completion Report
+
+| Endpoint                                 | Method     | Description                                               | Raw Data Example |
+|------------------------------------------|------------|-----------------------------------------------------------|----------------|
+| `/api/tasks/<id>/report/`     | GET        | View task completion report (Admin/SuperAdmin only)      | N/A |
+
+---
