@@ -13,7 +13,7 @@ Supports **SuperAdmin**, **Admin**, and **User** roles, task assignment, complet
 - Task completion report with worked hours
 - JWT authentication for API access
 - Admins can manage only their assigned users
-- Responsive and clean HTML templates
+- clean HTML templates
 
 ---
 
