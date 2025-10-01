@@ -29,13 +29,13 @@ Supports **SuperAdmin**, **Admin**, and **User** roles, task assignment, complet
 
 ## ⚡ Prerequisites
 
-git clone https://github.com/SalmanSaalu/Nuvendus_Task.git
-cd task_manager
-pip install -r requirements.txt
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver
+- git clone https://github.com/SalmanSaalu/Nuvendus_Task.git
+- cd task_manager
+- pip install -r requirements.txt
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py runserver
 
 
-## To view the home page - http://127.0.0.1:8000/tasks/login
+#### To view the home page - http://127.0.0.1:8000/tasks/login
 
